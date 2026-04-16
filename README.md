@@ -1,36 +1,204 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Teja Interactive Portfolio
 
-## Getting Started
+An interactive developer portfolio built with Next.js and Supabase. This project extends beyond a traditional portfolio by introducing a hybrid identity system, real-time engagement tracking, and a dynamic leaderboard driven by user interaction and gameplay.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This portfolio is designed as a system-driven experience rather than a static showcase. It tracks user behavior, supports optional authentication via GitHub, and integrates gameplay elements to create a more engaging and measurable environment.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The goal is to demonstrate how core systems—identity, state, and interaction—can be combined into a cohesive product.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Core Features
 
-To learn more about Next.js, take a look at the following resources:
+### Hybrid Identity System
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The application supports both guest and authenticated users:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* **Guest Users**
 
-## Deploy on Vercel
+  * Assigned a `visitor_id` stored in localStorage
+  * No login required
+  * Engagement data is tracked and persisted
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* **Authenticated Users (GitHub OAuth)**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+  * Login via GitHub using Supabase Auth
+  * Profile data (username, avatar) is retrieved
+  * Guest data is merged into the authenticated account
+
+This ensures continuity of data while keeping the barrier to entry low.
+
+---
+
+### Engagement Tracking
+
+User interaction is tracked in real time:
+
+* Time spent on the site (`active_seconds`)
+* Clicks and interactions
+* Session activity
+
+All data is associated with a persistent identity (`visitor_id` or `user_id`).
+
+---
+
+### Leaderboard System
+
+A dynamic leaderboard ranks users based on overall engagement.
+
+#### Scoring Factors
+
+* Time spent on the website
+* Number of interactions
+* Game performance
+
+The score is calculated consistently at the database level.
+
+#### Display
+
+* Username (or visitor identifier)
+* Avatar (for authenticated users)
+* Score and engagement metrics
+
+No sensitive information (such as email) is exposed.
+
+---
+
+### Blog System
+
+A lightweight content system supports:
+
+* Markdown-based posts
+* Optional YouTube embeds
+* Minimal, clean presentation
+
+Used for updates, notes, or technical write-ups.
+
+---
+
+### Interactive Systems
+
+The portfolio incorporates game-inspired interactions:
+
+* Event-driven UI behavior
+* Hidden mechanics and triggers
+* Integrated text-based gameplay (Hamurabi)
+
+These elements are designed to reflect a systems-oriented approach to development.
+
+---
+
+### GitHub Integration
+
+* Displays recent repository activity
+* Uses GitHub API
+* Supports optional token for higher rate limits
+
+---
+
+## Architecture
+
+### Frontend
+
+* Next.js (App Router)
+* Component-based structure
+* Tailwind CSS for styling
+
+### Backend
+
+* Supabase (PostgreSQL + Auth)
+* Row-level security policies
+* API routes for:
+
+  * Engagement tracking
+  * Leaderboard updates
+  * Identity merging
+
+---
+
+## Database Design
+
+### Visitors
+
+Stores identity and engagement data:
+
+* `visitor_id`
+* `user_id`
+* `clicks`
+* `active_seconds`
+* `score` (computed)
+* `display_name`
+* `avatar_url`
+* `github_username`
+
+### Posts
+
+* `title`
+* `slug`
+* `content`
+* `youtube_url`
+* `published`
+
+### Global Stats
+
+* Aggregated metrics such as total clicks
+
+---
+
+## Authentication Flow
+
+1. User visits → assigned a `visitor_id`
+2. Activity is tracked as a guest
+3. User logs in via GitHub
+4. Guest data is merged into the user account
+5. Future activity is tied to the authenticated identity
+
+---
+
+## Privacy and Security
+
+* No sensitive data is exposed publicly
+* Authentication handled via Supabase
+* Environment variables excluded from version control
+* Row-level security enforced at the database level
+
+---
+
+## Tech Stack
+
+* Next.js
+* Supabase (PostgreSQL + Auth)
+* Tailwind CSS
+* GitHub API
+
+---
+
+## Purpose
+
+This project is intended to demonstrate:
+
+* Systems thinking in application and game design
+* Integration of frontend and backend systems
+* Real-time data tracking and aggregation
+* Clean, scalable architecture
+* Practical use of authentication and database design
+
+---
+
+## Future Improvements
+
+* Expanded gameplay systems
+* More advanced analytics
+* Improved scoring model
+* Additional authentication providers
+* UI/UX refinements
+
+---
+
+## Notes
+
+This is an actively evolving project focused on experimentation with systems, interaction, and user-driven data.
