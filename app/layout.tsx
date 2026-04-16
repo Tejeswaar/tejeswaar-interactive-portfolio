@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import EngagementTracker from "./components/EngagementTracker";
 import TopNav from "./components/TopNav";
+import { AuthProvider } from "./components/AuthProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,9 +18,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tejeswaar Reddy — Game Systems Programmer · Technical Artist",
+  title: "Tejeswaar Reddy - Game Systems Programmer | Technical Artist",
   description:
-    "I build the systems that make worlds feel real — from low-level C++ engines to modular combat in Unreal Engine 5. Portfolio of Tejeswaar Reddy.",
+    "I build the systems that make worlds feel real - from low-level C++ engines to modular combat in Unreal Engine 5. Portfolio of Tejeswaar Reddy.",
   keywords: [
     "game programmer",
     "game developer",
@@ -32,18 +33,18 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Tejeswaar Reddy" }],
   openGraph: {
-    title: "Tejeswaar Reddy — Game Systems Programmer",
+    title: "Tejeswaar Reddy - Game Systems Programmer",
     description:
-      "I build the systems that make worlds feel real — from low-level C++ engines to modular combat in Unreal Engine 5.",
+      "I build the systems that make worlds feel real - from low-level C++ engines to modular combat in Unreal Engine 5.",
     type: "website",
     locale: "en_US",
     url: "https://tejeswaarreddy.dev",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tejeswaar Reddy — Game Systems Programmer",
+    title: "Tejeswaar Reddy - Game Systems Programmer",
     description:
-      "I build the systems that make worlds feel real — from low-level C++ engines to modular combat in Unreal Engine 5.",
+      "I build the systems that make worlds feel real - from low-level C++ engines to modular combat in Unreal Engine 5.",
   },
   robots: {
     index: true,
@@ -61,12 +62,14 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-ctp-base text-ctp-text`}
       >
-        <TopNav />
+        <AuthProvider>
+          <TopNav />
 
-        <main>{children}</main>
+          <main>{children}</main>
 
-        {/* Engagement tracker (popups + time tracking) */}
-        <EngagementTracker />
+          {/* Engagement tracker (popups + time tracking) */}
+          <EngagementTracker />
+        </AuthProvider>
       </body>
     </html>
   );

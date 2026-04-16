@@ -1,20 +1,23 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import MobileNavClient from "./MobileNav";
+import { useIdentity } from "./AuthProvider";
 
 const navLinks = [
   { href: "/#about", label: "about" },
   { href: "/#projects", label: "projects" },
   { href: "/#experience", label: "experience" },
   { href: "/#dashboard", label: "dashboard" },
+  { href: "/leaderboard", label: "leaderboard" },
   { href: "/blog", label: "blog" },
   { href: "/terminal", label: ">_" },
 ] as const;
 
 export default function TopNav() {
   const pathname = usePathname();
+  const { isLoggedIn, user, login, logout } = useIdentity();
 
   // Keep terminal immersive: no global nav overlay.
   if (pathname?.startsWith("/terminal")) return null;
@@ -35,10 +38,30 @@ export default function TopNav() {
               {link.label}
             </Link>
           ))}
+
+          {isLoggedIn && user ? (
+            <button
+              onClick={logout}
+              className="flex items-center gap-2 font-mono text-xs text-ctp-overlay1 hover:text-ctp-text transition-colors"
+            >
+              <img
+                src={user.user_metadata?.avatar_url || ""}
+                alt="avatar"
+                className="w-5 h-5 rounded-full"
+              />
+              <span className="hidden md:inline">{user.user_metadata?.user_name}</span>
+            </button>
+          ) : (
+            <button
+              onClick={login}
+              className="font-mono text-xs text-ctp-mauve hover:text-ctp-pink transition-colors"
+            >
+              GitHub -&gt;
+            </button>
+          )}
         </div>
         <MobileNavClient />
       </div>
     </nav>
   );
 }
-
