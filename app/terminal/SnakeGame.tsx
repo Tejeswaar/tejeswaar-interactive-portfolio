@@ -14,7 +14,7 @@ const SPEED = 120;
 
 export default function SnakeGame({ onClose }: { onClose: () => void }) {
   const [snake, setSnake] = useState(INITIAL_SNAKE);
-  const [direction, setDirection] = useState(INITIAL_DIRECTION);
+  const [_direction, setDirection] = useState(INITIAL_DIRECTION);
   const [food, setFood] = useState({ x: 5, y: 5 });
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);

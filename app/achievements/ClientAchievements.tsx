@@ -114,7 +114,7 @@ export default function ClientAchievements() {
       </div>
       {(unlocked.greenDotFriends && unlocked.greenDotPissedOff) && (
         <p className="mt-8 text-center text-xs text-ctp-overlay0 opacity-50 font-mono italic">
-          You've somehow traveled branching timelines to obtain all endings. 
+          You&apos;ve somehow traveled branching timelines to obtain all endings. 
         </p>
       )}
     </div>

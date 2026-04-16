@@ -26,7 +26,7 @@ export default function TerminalClient() {
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [mode, setMode] = useState<TerminalMode>("normal");
   const [isAdmin, setIsAdmin] = useState(false);
-  const { isLoggedIn, login } = useIdentity();
+  const { isLoggedIn } = useIdentity();
   const [gameState, setGameState] = useState<GameState | null>(null);
   const [showSnakeGame, setShowSnakeGame] = useState(false);
   const [greenDotTransform, setGreenDotTransform] = useState({ x: 0, y: 0 });
@@ -46,7 +46,7 @@ export default function TerminalClient() {
   useEffect(() => {
     const savedLines = sessionStorage.getItem("terminalLines");
     if (savedLines) {
-      try { setLines(JSON.parse(savedLines)); } catch (e) {}
+      try { setLines(JSON.parse(savedLines)); } catch {}
     }
     
     // Check if green dot is friendly
